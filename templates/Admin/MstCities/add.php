@@ -9,13 +9,13 @@ $getStates_url = $this->Url->build(['prefix'=>'Admin', 'controller'=>'MstCities'
 <div class="form-group row">
     <label class="col-form-label col-lg-3 col-sm-12">Country Name *</label>
     <div class="col-lg-9 col-md-9 col-sm-12">
-        <?= $this->Form->control('mst_country_id', ['type'=> 'select','label'=>false,'options' => $mstCountries,'empty'=>'Select Country', 'class' => 'form-control','data-url'=>$getStates_url, 'placeholder'=>'Select Country Name', 'required'=> false]) ?>
+        <?= $this->Form->control('mst_country_id', ['type'=> 'select','label'=>false,'options' => $mstCountries,'empty'=>'Select Country', 'class' => 'form-control kt-select2 country','data-url'=>$getStates_url, 'placeholder'=>'Select Country Name', 'required'=> false]) ?>
     </div>
 </div>
 <div class="form-group row">
     <label class="col-form-label col-lg-3 col-sm-12">State Name *</label>
     <div class="col-lg-9 col-md-9 col-sm-12">
-        <?= $this->Form->control('mst_state_id', ['type'=> 'select','label'=>false, 'options' => [], 'class' => 'form-control', 'placeholder'=>'Select Country First', 'empty'=>'Select Country First', 'required'=> false]) ?>
+        <?= $this->Form->control('mst_state_id', ['type'=> 'select','label'=>false, 'options' => [], 'class' => 'form-control kt-select2 state', 'placeholder'=>'Select Country First', 'empty'=>'Select Country First', 'required'=> false]) ?>
     </div>
 </div>
 <div class="form-group row">

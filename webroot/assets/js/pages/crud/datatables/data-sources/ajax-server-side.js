@@ -104,9 +104,10 @@ jQuery(document).on('click','.edit, .add, .view', function(){
 		'success': function(result){
 			jQuery(".content-data").html(result);
 			jQuery(".modal-title").text($this.attr('title'));
+			setSelect2Field();
 			jQuery('#kt_modal_country').modal({
 				'show': true,
-				'backdrop': true
+				'backdrop': 'static'
 			});
 	  	}
 	});
@@ -150,3 +151,16 @@ jQuery(document).on('click','.status', function(e) {
 		}
 	});
 });
+function setSelect2Field(){
+	jQuery(".country").select2({
+		placeholder: "Select Country",
+		width: '100%'
+	}).on("change", function (e) {
+		var str = $(this).select2('data');
+		DOSelectAjaxProd(str, $(this));
+  	});
+	jQuery(".state").select2({
+		placeholder: "Select Country First",
+		width: '100%'
+	});
+}

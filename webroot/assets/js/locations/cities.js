@@ -1,24 +1,4 @@
 jQuery(document).ready(function() {
-    jQuery(document).off('change', '#mst-country-id');
-    jQuery(document).on('change','#mst-country-id', function(){
-        var url = jQuery(this).attr('data-url');
-        var country_id = jQuery(this).val(); 
-        jQuery.ajax({
-            'url': url, 
-            'type': 'POST',
-            'headers': {
-                'X-CSRF-Token': csrfToken
-            },
-            'data': {'country_id': country_id },
-            'success': function(result){
-                jQuery('#mst-state-id').find('option').remove();
-                $('<option>').val('').text('Select States').appendTo(jQuery('#mst-state-id'));
-                jQuery.each(JSON.parse(result), function(key, value){
-                    $('<option>').val(key).text(value).appendTo(jQuery('#mst-state-id'));
-                });
-            }
-        });
-    });
     jQuery(document).off('click', '#kt_city_submit');
     jQuery(document).on('click', '#kt_city_submit', function(){
         jQuery( "#cities-form" ).validate({
@@ -89,3 +69,22 @@ jQuery(document).ready(function() {
         });
     });
 });
+function DOSelectAjaxProd(str, $this){
+    var url = $this.attr('data-url');
+    jQuery.ajax({
+        'url': url, 
+        'type': 'POST',
+        'headers': {
+            'X-CSRF-Token': csrfToken
+        },
+        'data': {'country_id': str[0].id },
+        'success': function(result){
+            jQuery('#mst-state-id').find('option').remove();
+            jQuery('.state').select2({placeholder: "Select State"});
+            $('<option>').val('').text('Select States').appendTo(jQuery('#mst-state-id'));
+            jQuery.each(JSON.parse(result), function(key, value){
+                $('<option>').val(key).text(value).appendTo(jQuery('#mst-state-id'));
+            });
+        }
+    });
+}
