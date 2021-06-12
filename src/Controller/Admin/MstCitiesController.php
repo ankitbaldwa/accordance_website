@@ -102,8 +102,7 @@ class MstCitiesController extends AppController
         $data = array();
     	foreach ( $query->all() as $row){
             $nestedData= [];
-            /* $nestedData[] = $row->id; */
-            $nestedData[] = $i + 1;
+            $nestedData[] = $row->id;
             $nestedData[] = $row->mst_country->country_name;
             $nestedData[] = $row->mst_state->state_name;
             $nestedData[] = $row->city_name;
