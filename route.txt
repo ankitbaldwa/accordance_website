@@ -1,0 +1,21 @@
+Router::plugin(
+    'LocationManager',
+    ['path' => '/location-manager'],
+    function ($routes) {
+        /** Routes for countries plugin master */
+        $routes->get('/location-countries', ['controller' => 'MstCountries','action'=>'index']);
+        $routes->get('/location-countries/add', ['controller' => 'MstCountries','action'=>'add']);
+        $routes->get('/location-countries-view/{id}', ['controller' => 'MstCountries', 'action' => 'view']);
+        $routes->put('/location-countries-update/{id}', ['controller' => 'MstCountries', 'action' => 'update']);
+        /** Routes for states plugin master */
+        $routes->get('/location-states', ['controller' => 'MstStates','action'=>'index']);
+        $routes->get('/location-states/add', ['controller' => 'MstStates','action'=>'add']);
+        $routes->get('/location-states/{id}', ['controller' => 'MstStates', 'action' => 'view']);
+        $routes->put('/location-states/{id}', ['controller' => 'MstStates', 'action' => 'update']);
+        /** Routes for cities plugin master */
+        $routes->get('/location-cities', ['controller' => 'MstCities','action'=>'index']);
+        $routes->get('/location-cities/add', ['controller' => 'MstCities','action'=>'add']);
+        $routes->get('/location-cities/{id}', ['controller' => 'MstCities', 'action' => 'view']);
+        $routes->put('/location-cities/{id}', ['controller' => 'MstCities', 'action' => 'update']);
+    }
+);
