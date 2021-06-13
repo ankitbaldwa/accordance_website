@@ -104,7 +104,7 @@ jQuery(document).on('click','.edit, .add, .view', function(){
 		'success': function(result){
 			jQuery(".content-data").html(result);
 			jQuery(".modal-title").text($this.attr('title'));
-			setSelect2Field();
+			loadINIT();
 			jQuery('#kt_modal_country').modal({
 				'show': true,
 				'backdrop': 'static'

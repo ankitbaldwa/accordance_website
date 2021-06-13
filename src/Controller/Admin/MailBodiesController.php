@@ -98,7 +98,7 @@ class MailBodiesController extends AppController
             $nestedData[] = $row->id;
             $nestedData[] = $row->type;
             $nestedData[] = $row->subject;
-            $nestedData[] = '<a title="View Mail Body" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'MailBodies', 'action' => 'view', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md view"><i class="la la-eye"></i></a> | <a title="Edit Mail Body" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'MailBodies', 'action' => 'edit', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md edit"><i class="la la-edit"></i></a>';
+            $nestedData[] = '<a title="View Mail Template" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'MailBodies', 'action' => 'view', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md view"><i class="la la-eye"></i></a> | <a title="Edit Mail Body" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'MailBodies', 'action' => 'edit', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md edit"><i class="la la-edit"></i></a>';
             $data[] = $nestedData;
     		$i++;
     	}

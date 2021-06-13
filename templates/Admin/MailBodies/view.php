@@ -4,7 +4,8 @@
  * @var \Cake\Datasource\EntityInterface $mailBody
  */
 ?>
-<div class="row">
+<?= $mailBody->body; ?>
+<!-- <div class="row">
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
@@ -47,4 +48,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

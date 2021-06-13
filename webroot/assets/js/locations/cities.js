@@ -88,3 +88,6 @@ function DOSelectAjaxProd(str, $this){
         }
     });
 }
+function loadINIT(){
+    setSelect2Field();
+}
