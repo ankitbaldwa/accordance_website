@@ -126,7 +126,7 @@ class PackagesController extends AppController
                 $nestedData[] = '<span class="kt-badge  kt-badge--info kt-badge--inline kt-badge--pill">'.$row->status.'</span>';
             else if($row->status == 'Pending')
                 $nestedData[] = '<span class="kt-badge  kt-badge--warning kt-badge--inline kt-badge--pill">'.$row->status.'</span>';
-            $nestedData[] = '<a title="Edit Package" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'Packages', 'action' => 'edit', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md edit"><i class="la la-edit"></i></a> | <a title="View Package" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'Packages', 'action' => 'view', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md view"><i class="la la-eye"></i></a>';
+            $nestedData[] = '<a title="Edit Package" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'Packages', 'action' => 'edit', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md edit"><i class="la la-edit"></i></a> | <a title="View Package Benfits" href="'.Router::url(['prefix'=>'Admin','controller' => 'PackageBenefits', 'action' => 'index', enc_dec(1, (String) $row->id)]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md view"><i class="la la-eye"></i></a>';
             $data[] = $nestedData;
     		$i++;
     	}
@@ -168,9 +168,11 @@ class PackagesController extends AppController
             if ($this->Packages->save($package)) {
                 $this->Flash->success(__('The package has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
+                echo JSON_encode(array('status'=>1, 'message'=>'Package has been saved successfully!')); exit;
             }
             $this->Flash->error(__('The package could not be saved. Please, try again.'));
+            echo JSON_encode(array('status'=>2, 'message'=>'The package could not be saved. Please, try again.')); exit;
         }
         $products = $this->Packages->Products->find('list', ['limit' => 200]);
         $this->set(compact('package', 'products'));
@@ -193,9 +195,11 @@ class PackagesController extends AppController
             if ($this->Packages->save($package)) {
                 $this->Flash->success(__('The package has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
+                echo JSON_encode(array('status'=>1, 'message'=>'Package has been updated successfully!')); exit;
             }
             $this->Flash->error(__('The package could not be saved. Please, try again.'));
+            echo JSON_encode(array('status'=>2, 'message'=>'The package could not be saved. Please, try again.')); exit;
         }
         $products = $this->Packages->Products->find('list', ['limit' => 200]);
         $this->set(compact('package', 'products'));

@@ -12,7 +12,6 @@
                     <div class="kt-login__signin">
                         <div class="kt-login__head">
                             <h3 class="kt-login__title">Sign In To Admin</h3>
-                            <?= $this->Flash->render() ?>
                         </div>
                         <?= $this->Form->create(null, ['class'=>'kt-form']) ?>
                             <div class="input-group">

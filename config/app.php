@@ -418,4 +418,5 @@ return [
     'Session' => [
         'defaults' => 'php',
     ],
+    'uploadedFilesAsObjects' => false,
 ];

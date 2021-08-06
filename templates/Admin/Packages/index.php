@@ -143,4 +143,4 @@
 			];
 </script>
 <!--begin::Page Scripts(used by this page) -->
-<?= $this->Html->script(['../assets/plugins/custom/datatables/datatables.bundle.js','../assets/js/pages/crud/datatables/data-sources/ajax-server-side.js']) ?>
+<?= $this->Html->script(['../assets/plugins/custom/datatables/datatables.bundle.js','../assets/js/pages/crud/datatables/data-sources/ajax-server-side.js','../assets/js/packages.js']) ?>

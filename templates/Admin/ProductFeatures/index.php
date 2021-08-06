@@ -62,7 +62,8 @@
                                             </div>
                                         </div>
                                         &nbsp;
-                                        <?= $this->Html->link('<i class="la la-plus"></i> New Product Features', 'javascript:void(0)', ['class' => 'btn btn-brand btn-elevate btn-icon-sm add', 'escape' => false, 'data-url'=>$this->Url->build(['prefix'=>'Admin','controller' => 'ProductFeatures','action' => 'add', $product->id]), 'title'=>'Add Product Feature']) ?>
+                                        <?= $this->Html->link('<i class="la la-plus"></i> New Product Features', 'javascript:void(0)', ['class' => 'btn btn-brand btn-elevate btn-icon-sm add', 'escape' => false, 'data-url'=>$this->Url->build(['prefix'=>'Admin','controller' => 'ProductFeatures','action' => 'add', $product->id]), 'title'=>'Add Product Feature']) ?> &nbsp;
+                                        <?= $this->Html->link('<i class="la la-arrow-left"></i> Back', $this->Url->build(['prefix'=>'Admin','controller' => 'Products','action' => 'index']), ['class' => 'btn btn-outline-dark btn-elevate-hover btn-pill', 'escape' => false, 'title'=>'Back']) ?>
                                     </div>
                                 </div>
                             </div>
@@ -138,5 +139,5 @@
 			];
 </script>
 <!--begin::Page Scripts(used by this page) -->
-<?= $this->Html->script(['../assets/plugins/custom/datatables/datatables.bundle.js','../assets/js/pages/crud/datatables/data-sources/ajax-server-side.js']) ?>
+<?= $this->Html->script(['../assets/plugins/custom/datatables/datatables.bundle.js','../assets/js/pages/crud/datatables/data-sources/ajax-server-side.js','../assets/js/productFeatures.js']) ?>
 

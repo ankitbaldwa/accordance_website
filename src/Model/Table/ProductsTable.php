@@ -54,6 +54,24 @@ class ProductsTable extends Table
         $this->hasMany('ProductFeatures', [
             'foreignKey' => 'product_id',
         ]);
+        $this->addBehavior('Proffer.Proffer', [
+            'image' => [	// The name of your upload field
+                'root' =>  WWW_ROOT .  'img' . DS . 'products'. DS, // Customise the root upload folder here, or omit to use the default
+                //'dir' => 'product_image',	// The name of the field to store the folder
+                'thumbnailSizes' => [ // Declare your thumbnails
+                    'square' => [	// Define the prefix of your thumbnail
+                        'w' => 200,	// Width
+                        'h' => 200,	// Height
+                        'jpeg_quality'	=> 100
+                    ],
+                    'portrait' => [		// Define a second thumbnail
+                        'w' => 100,
+                        'h' => 300
+                    ],
+                ],
+                'thumbnailMethod' => 'gd'	// Options are Imagick or Gd
+            ]
+        ]);
     }
 
     /**
@@ -74,7 +92,7 @@ class ProductsTable extends Table
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
-        $validator
+        /* $validator
             ->scalar('image')
             ->requirePresence('image', 'create')
             ->notEmptyFile('image');
@@ -82,7 +100,7 @@ class ProductsTable extends Table
         $validator
             ->scalar('status')
             ->requirePresence('status', 'create')
-            ->notEmptyString('status');
+            ->notEmptyString('status'); */
 
         return $validator;
     }

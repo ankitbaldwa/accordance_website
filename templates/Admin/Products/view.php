@@ -4,7 +4,25 @@
  * @var \App\Model\Entity\Product $product
  */
 ?>
-<div class="row">
+<div class="form-group row">
+    <label class="col-form-label col-lg-3 col-sm-12">Name </label>
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        <?= $product->name ?>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-form-label col-lg-3 col-sm-12">Slug </label>
+    <div class="col-lg-9 col-md-9 col-sm-12">
+        <?= $product->slug ?>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-form-label col-lg-3 col-sm-12">Image</label>
+    <div class="col-lg-4 col-sm-12">
+        <?= $this->Html->image('products'. DS .$product->image, ['alt' => 'Product Image','width'=>'30%']) ?>
+    </div>
+</div>
+<!-- <div class="row">
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
@@ -135,4 +153,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

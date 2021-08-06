@@ -74,6 +74,7 @@
                                     <tr>
                                         <th><?= $this->Paginator->sort('id') ?></th>
                                         <th><?= $this->Paginator->sort('name') ?></th>
+                                        <th><?= $this->Paginator->sort('image') ?></th>
                                         <th><?= $this->Paginator->sort('Total Features') ?></th>
                                         <th><?= $this->Paginator->sort('status') ?></th>
                                         <th class="actions"><?= __('Actions') ?></th>
@@ -138,5 +139,5 @@
 			];
 </script>
 <!--begin::Page Scripts(used by this page) -->
-<?= $this->Html->script(['../assets/plugins/custom/datatables/datatables.bundle.js','../assets/js/pages/crud/datatables/data-sources/ajax-server-side.js']) ?>
+<?= $this->Html->script(['../assets/plugins/custom/datatables/datatables.bundle.js','../assets/js/pages/crud/datatables/data-sources/ajax-server-side.js','../assets/js/products.js']) ?>
 

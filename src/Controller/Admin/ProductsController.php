@@ -37,20 +37,19 @@ class ProductsController extends AppController
         $this->autoRender = false;
         $requestData= $this->request->getData();
 
-        $ProductFeatures_query = $this->getTableLocator()->get('ProductFeatures')
-                    ->find();
         $columns = array(
             0 => 'Products.id',
             1 => 'Products.name',
-            2 => 'Products.status',
-            'total_count' => $ProductFeatures_query->count('ProductFeatures.id')
+            2 => 'Products.image',
+            3 => 'Products.status'
         );
         $order = array('Products.id' => 'DESC');
         $page = intval($requestData['start']);
         $offset = intval($requestData['length']);
         $query = $this->getTableLocator()->get('Products')
                     ->find()
-                    ->select($columns);
+                    ->select($columns)
+                    ->contain(['ProductFeatures']);
         /** For where condition  */
         $i = 0;
         $condition = [];
@@ -101,7 +100,11 @@ class ProductsController extends AppController
             $nestedData= [];
             $nestedData[] = $row->id;
             $nestedData[] = $row->name;
-            $nestedData[] = '<a title="View Product Features" href="'.Router::url(['prefix'=>'Admin','controller' => 'ProductFeatures', 'action' => 'index', enc_dec(1, (String) $row->id)]).'"><span class="kt-badge kt-badge--dark kt-badge--lg">'.$row->total_count.'</span></a>';
+            if(!empty($row->image))
+                $nestedData[] = "<img src='../img/products/". $row->image."' alt='Image' width='30%'>";
+            else 
+                $nestedData[] = "N/A";
+            $nestedData[] = '<a title="View Product Features" href="'.Router::url(['prefix'=>'Admin','controller' => 'ProductFeatures', 'action' => 'index', enc_dec(1, (String) $row->id)]).'"><span class="kt-badge kt-badge--dark kt-badge--lg">'.count($row->product_features).'</span></a>';
             if($row->status == 1)
                 $nestedData[] = '<a title="Status" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'Products', 'action' => 'status', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md status"><span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Active</span></a>';
             else if($row->status == 0)
@@ -147,12 +150,24 @@ class ProductsController extends AppController
         $product = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
+            if(!empty($product->image)){
+                $image = $this->request->getData('image');
+                $name = date('Ymdhis').'_'.$image->getClientFilename();
+                $targetPath = WWW_ROOT .  'img' . DS . 'products'. DS . $name;
+                if($name){ 
+                    $image->moveTo($targetPath);
+                    $product->image = $name;
+                }
+            }
+            $product->slug = $this->request->getData()['slug'];
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
+                echo JSON_encode(array('status'=>1, 'message'=>'Product has been saved successfully!')); exit;
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
+            echo JSON_encode(array('status'=>2, 'message'=>'The product could not be saved. Please, try again.')); exit;
         }
         $this->set(compact('product'));
     }
@@ -171,12 +186,26 @@ class ProductsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
+            if(!empty($product->image)){
+                $image = $this->request->getData('image');
+                $name = date('Ymdhis').'_'.$image->getClientFilename();
+                $targetPath = WWW_ROOT .  'img' . DS . 'products'. DS . $name;
+                if($name){ 
+                    $image->moveTo($targetPath);
+                    $product->image = $name;
+                }
+            } else {
+                unset($product->image);
+            }
+            $product->slug = $this->request->getData()['slug'];
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
+                echo JSON_encode(array('status'=>1, 'message'=>'Product has been updated successfully!')); exit;
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
+            echo JSON_encode(array('status'=>2, 'message'=>'The product could not be saved. Please, try again.')); exit;
         }
         $this->set(compact('product'));
     }
@@ -190,6 +219,10 @@ class ProductsController extends AppController
             $Products = $ProductsTable->get($id); // Return Products with id
 
             $Products->status = $this->request->getData()['status'];
+            if($Products->status == 'Active')
+                $Products->status = 1;
+            else 
+                $Products->status = 0;
             $ProductsTable->save($Products);
             echo 1;exit;
         }
