@@ -58,7 +58,7 @@ class ProductFeaturesController extends AppController
         $i = 0;
         $condition = [];
         $cond = [];
-        foreach ($columns as $item) // loop column 
+        foreach ($columns as $item) // loop column
         {
             if ($requestData['search']['value']) // if datatable send POST for search
             {
@@ -74,9 +74,9 @@ class ProductFeaturesController extends AppController
         }
         if(!empty($cond))
             $condition = ['ProductFeatures.product_id' => $id, 'OR' => $cond];
-        else 
+        else
             $condition = ['ProductFeatures.product_id' => $id];
-        
+
         $query->where($condition);
         /** For order by */
         if (isset($requestData['order'])) // here order processing
@@ -145,7 +145,7 @@ class ProductFeaturesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = "")
     {
         $productFeature = $this->ProductFeatures->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -153,11 +153,13 @@ class ProductFeaturesController extends AppController
             if ($this->ProductFeatures->save($productFeature)) {
                 $this->Flash->success(__('The product feature has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
+                echo JSON_encode(array('status'=>1, 'message'=>'Product has been saved successfully!')); exit;
             }
             $this->Flash->error(__('The product feature could not be saved. Please, try again.'));
+            echo JSON_encode(array('status'=>2, 'message'=>'The product could not be saved. Please, try again.')); exit;
         }
-        $products = $this->ProductFeatures->Products->find('list', ['limit' => 200]);
+        $products = $this->ProductFeatures->Products->find('list', ['conditions'=>['id'=>$id]]);
         $this->set(compact('productFeature', 'products'));
     }
 
@@ -178,11 +180,13 @@ class ProductFeaturesController extends AppController
             if ($this->ProductFeatures->save($productFeature)) {
                 $this->Flash->success(__('The product feature has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
+                echo JSON_encode(array('status'=>1, 'message'=>'Product has been updated successfully!')); exit;
             }
             $this->Flash->error(__('The product feature could not be saved. Please, try again.'));
+            echo JSON_encode(array('status'=>2, 'message'=>'The product could not be saved. Please, try again.')); exit;
         }
-        $products = $this->ProductFeatures->Products->find('list', ['limit' => 200]);
+        $products = $this->ProductFeatures->Products->find('list', ['conditions' => ['id'=>$productFeature->product_id]]);
         $this->set(compact('productFeature', 'products'));
     }
 
@@ -205,22 +209,41 @@ class ProductFeaturesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    public function downloadExcel($type){
+    /**
+     * Change status method
+     * @param string|null $id ProductFeatures id.
+     */
+    public function status($id = null){
+        if ($this->request->is(['post'])) {
+            $ProductFeaturesTable = $this->getTableLocator()->get('ProductFeatures');
+            $ProductFeatures = $ProductFeaturesTable->get($id); // Return Products with id
+
+            $ProductFeatures->status = $this->request->getData()['status'];
+            if($ProductFeatures->status == 0)
+                $ProductFeatures->status = 1;
+            else
+                $ProductFeatures->status = 0;
+            $ProductFeaturesTable->save($ProductFeatures);
+            echo 1;exit;
+        }
+    }
+    public function downloadExcel($type, $id = null){
         ini_set('memory_limit', '-1');
-        $cities = $this->getTableLocator()->get('Products')
-                    ->find();
+        $id = enc_dec(2, $id);
+        $ProductFeatures = $this->getTableLocator()->get('ProductFeatures')
+                    ->find()->contain(['Products'])->where(['product_id'=>$id]);
         $spreadsheet = new Spreadsheet();
-        //Set document properties 
+        //Set document properties
         $spreadsheet->getProperties()
                     ->setCreator('Accordance India')
                     ->setLastModifiedBy($this->request->getSession()->read('Auth.name'))
-                    ->setTitle('Products')
+                    ->setTitle('Product Feature')
                     ->setSubject('')
                     ->setDescription('')
                     ->setKeywords('')
-                    ->setCategory('Location');
-        // Add some data 
-        $headerArray = ['Id', 'Name', 'Status'];
+                    ->setCategory('Product Feature');
+        // Add some data
+        $headerArray = ['Id', 'Product', 'Name', 'Status'];
         $spreadsheet->setActiveSheetIndex(0);
         $spreadsheet->getActiveSheet()
                     ->fromArray(
@@ -228,7 +251,7 @@ class ProductFeaturesController extends AppController
                         NULL,        // Array values with this value will not be set
                         'A1'         // Top left coordinate of the worksheet range where we want to set these values (default is A1)
                     )
-                    ->setTitle('Products');
+                    ->setTitle('Product Feature');
         $spreadsheet->getActiveSheet()->setAutoFilter(
             $spreadsheet->getActiveSheet()
                 ->calculateWorksheetDimension()
@@ -241,27 +264,29 @@ class ProductFeaturesController extends AppController
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
             ]
         ];
-        
-        $spreadsheet->getActiveSheet()->getStyle('A1:C1')->applyFromArray($styleArray);
-        $spreadsheet->getActiveSheet()->getStyle('A1:C1')->getAlignment()->setHorizontal('center');
+
+        $spreadsheet->getActiveSheet()->getStyle('A1:D1')->applyFromArray($styleArray);
+        $spreadsheet->getActiveSheet()->getStyle('A1:D1')->getAlignment()->setHorizontal('center');
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-        $i=2;
-        foreach ( $cities->all() as $row){
-            $spreadsheet->getActiveSheet()->setCellValue('A'.$i, $row->id);
-            $spreadsheet->getActiveSheet()->setCellValue('B'.$i, $row->name);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+        $i=2;$counter=0;
+        foreach ( $ProductFeatures->all() as $row){
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$i, ++$counter);
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$i, $row->product->name);
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$i, $row->name);
             if($row->status == 0)
                 $status = 'Inactive';
             else if($row->status == 1)
                 $status = 'Active';
-            else 
+            else
                 $status = 'Default';
-            $spreadsheet->getActiveSheet()->setCellValue('C'.$i, $status);
+            $spreadsheet->getActiveSheet()->setCellValue('D'.$i, $status);
             $i++;
         }
         ob_end_clean();
         if($type == 'excel'){
-            $filename='Products.xlsx'; //save our workbook as this file name
+            $filename='ProductFeatures.xlsx'; //save our workbook as this file name
             $writer = new Xlsx($spreadsheet);
             header('Content-Type: application/vnd.ms-excel');
             header('Content-Disposition: attachment;filename="'. $filename);
@@ -271,7 +296,7 @@ class ProductFeaturesController extends AppController
             $writer->save('php://output'); // download file
         }
         if($type == 'csv'){
-            $filename='Products.csv'; //save our workbook as this file name
+            $filename='ProductFeatures.csv'; //save our workbook as this file name
             $writer = new Csv($spreadsheet);
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment;filename="'. $filename);
@@ -279,13 +304,13 @@ class ProductFeaturesController extends AppController
             $writer->save('php://output'); // download file
         }
         if($type == 'pdf'){
-            $filename='Products.pdf'; //save our workbook as this file name
+            $filename='ProductFeatures.pdf'; //save our workbook as this file name
             $writer = new Mpdf($spreadsheet);
             $writer->setPreCalculateFormulas(false);
             header('Content-Type: application/pdf');
             header('Content-Disposition: attachment;filename="'. $filename);
             header('Cache-Control: max-age=0');
-            header("Cache-control: private"); //use this to open files directly 
+            header("Cache-control: private"); //use this to open files directly
             $writer->save('php://output'); // download file
         }
         die;

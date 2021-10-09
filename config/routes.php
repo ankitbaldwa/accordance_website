@@ -88,10 +88,10 @@ $routes->scope('/', function (RouteBuilder $builder) {
  * ```
  * $routes->scope('/api', function (RouteBuilder $builder) {
  *     // No $builder->applyMiddleware() here.
- *     
+ *
  *     // Parse specified extensions from URLs
  *     // $builder->setExtensions(['json', 'xml']);
- *     
+ *
  *     // Connect API actions here.
  * });
  * ```
@@ -99,6 +99,11 @@ $routes->scope('/', function (RouteBuilder $builder) {
 $routes->prefix('admin', function (RouteBuilder $routes) {
     $routes->connect('/', ['prefix'=>'Admin','controller' => 'Users', 'action' => 'login','plugin'=>null]);
     $routes->connect('/dashboard', ['prefix'=>'Admin','controller' => 'Users', 'action' => 'dashboard','plugin'=>null]);
+    $routes->connect('/packages', ['prefix'=>'Admin','controller' => 'Packages', 'action' => 'index','plugin'=>null], ['_name' => 'package']);
+    $routes->connect('/payments', ['prefix'=>'Admin','controller' => 'Payments', 'action' => 'index','plugin'=>null], ['_name'=>'payments']);
+    $routes->connect('/subscriptions', ['prefix'=>'Admin','controller' => 'Subscriptions', 'action' => 'index','plugin'=>null], ['_name'=>'subscriptions']);
+    $routes->connect('/requests', ['prefix'=>'Admin','controller' => 'Requests', 'action' => 'index','plugin'=>null], ['_name'=>'requests']);
+    $routes->connect('/enquires', ['prefix'=>'Admin','controller'=>'Enquiries','action'=>'index','plugin'=>null],['_name'=>'enquires']);
     $routes->plugin('LocationManager', ['path' => '/location-manager'], function (RouteBuilder $routes) {
         // Routes connected here are prefixed with '/debugger' and
         // have the plugin route element set to 'DebugKit'.
@@ -120,6 +125,6 @@ $routes->prefix('admin', function (RouteBuilder $routes) {
         $routes->connect('/location-cities/add', ['controller' => 'MstCities','action'=>'add']);
         $routes->connect('/location-cities/{id}', ['controller' => 'MstCities', 'action' => 'view']);
         $routes->connect('/location-cities/{id}', ['controller' => 'MstCities', 'action' => 'update']);
-        
+
     $routes->fallbacks(DashedRoute::class);
 });

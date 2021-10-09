@@ -12,9 +12,9 @@
 		<?= $this->element('aside'); ?>
 		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
 			<?= $this->element('header'); ?>
-			
+
 			<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
-            
+
 				<?php echo $this->element('content_head', array('page_name'=>'Manage Product Features of '.$product->name)); ?>
 				<!-- begin:: Content --><?php //pr($this->request->getAttribute('params')['_matchedRoute']); ?>
 				<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -63,7 +63,7 @@
                                         </div>
                                         &nbsp;
                                         <?= $this->Html->link('<i class="la la-plus"></i> New Product Features', 'javascript:void(0)', ['class' => 'btn btn-brand btn-elevate btn-icon-sm add', 'escape' => false, 'data-url'=>$this->Url->build(['prefix'=>'Admin','controller' => 'ProductFeatures','action' => 'add', $product->id]), 'title'=>'Add Product Feature']) ?> &nbsp;
-                                        <?= $this->Html->link('<i class="la la-arrow-left"></i> Back', $this->Url->build(['prefix'=>'Admin','controller' => 'Products','action' => 'index']), ['class' => 'btn btn-outline-dark btn-elevate-hover btn-pill', 'escape' => false, 'title'=>'Back']) ?>
+                                        <?= $this->Html->link('<i class="la la-arrow-left"></i> Back', $this->Url->build(['prefix'=>'Admin','controller' => 'Products','action' => 'index','_full'=>true]), ['class' => 'btn btn-outline-dark btn-elevate-hover btn-pill', 'escape' => false, 'title'=>'Back']) ?>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
 

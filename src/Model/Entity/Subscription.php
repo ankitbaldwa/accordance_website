@@ -50,7 +50,7 @@ class Subscription extends Entity
         'company_url' => true,
         'company_db_host' => true,
         'company_db_username' => true,
-        'comapny_db_password' => true,
+        'company_db_password' => true,
         'company_db_database' => true,
         'amount' => true,
         'start_date' => true,

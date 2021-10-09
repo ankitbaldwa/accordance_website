@@ -32,7 +32,7 @@
 <div class="kt-form__actions">
     <div class="row">
         <div class="col-lg-9 ml-lg-auto">
-            <?= $this->Form->button('Submit ',['type' => 'submit','escapeTitle' => false, 'class'=>'btn btn-pill btn-brand','id'=>'kt_product_feature_submit']); ?> 
+            <?= $this->Form->button('Submit ',['type' => 'submit','escapeTitle' => false, 'class'=>'btn btn-pill btn-brand','id'=>'kt_product_feature_submit']); ?>
             <button type="button" class="btn btn-pill btn-secondary" data-dismiss="modal">Close</button>
         </div>
     </div>

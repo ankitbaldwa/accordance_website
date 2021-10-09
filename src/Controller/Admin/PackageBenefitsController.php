@@ -4,6 +4,17 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
+use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\Routing\Router;
+/** Import phpspreadsheet libary */
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Helper;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Csv;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
+use Cake\I18n\Number;
+Number::setDefaultCurrency('INR');
 
 /**
  * PackageBenefits Controller
@@ -23,36 +34,27 @@ class PackageBenefitsController extends AppController
         $this->loadModel('Packages');
         $Packages = $this->Packages->get($id);
         $packageBenefits = $this->paginate($this->PackageBenefits);
-
-        $this->set(compact('packageBenefits', 'Packages'));
+        $this->set(compact('packageBenefits', 'Packages', 'id'));
     }
-    public function ajax(){
+    public function ajax($id=""){
         $this->autoRender = false;
+        $id = enc_dec(2, $id);
         $requestData= $this->request->getData();
-
         $columns = array(
-            0 => 'Packages.id',
-            1 => 'Products.name',
-            2 => 'Packages.name',
-            3 => 'Packages.no_of_days',
-            4 => 'Packages.price',
-            5 => 'Packages.discount_amt',
-            6 => 'Packages.tax_amount',
-            7 => 'Packages.net_amount',
-            8 => 'Packages.is_monthly',
-            9 => 'Packages.status'
+            0 => 'PackageBenefits.id',
+            1 => 'PackageBenefits.title'
         );
-        $order = array('Packages.id' => 'DESC');
+        $order = array('PackageBenefits.id' => 'DESC');
         $page = intval($requestData['start']);
         $offset = intval($requestData['length']);
-        $query = $this->getTableLocator()->get('Packages')
+        $query = $this->getTableLocator()->get('PackageBenefits')
                     ->find()
-                    ->select($columns)->contain('Products');
+                    ->select($columns);
         /** For where condition  */
         $i = 0;
-        $condition = [];
+        $condition = ['PackageBenefits.package_id'=>$id];
         $cond = [];
-        foreach ($columns as $item) // loop column 
+        foreach ($columns as $item) // loop column
         {
             if ($requestData['search']['value']) // if datatable send POST for search
             {
@@ -67,7 +69,7 @@ class PackageBenefitsController extends AppController
             $i++;
         }
         if(!empty($cond))
-            $condition = ['OR' => $cond];   
+            $condition = ['OR' => $cond];
         $query->where($condition);
         /** For order by */
         if (isset($requestData['order'])) // here order processing
@@ -96,28 +98,11 @@ class PackageBenefitsController extends AppController
         $data = array();
     	foreach ( $query->all() as $row){
             $nestedData= [];
-            //$nestedData[] = $row->id;
-            $nestedData[] = $row->product->name;
-            if($row->is_monthly == 'No')
-                $nestedData[] = $row->name.' <span class="kt-nav__link-badge"><span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">'.$row->is_monthly.'</span></span>';
-            else 
-                $nestedData[] = $row->name.' <span class="kt-nav__link-badge"><span class="kt-badge kt-badge--info kt-badge--inline kt-badge--pill kt-badge--rounded">'.$row->is_monthly.'</span></span>';
-            $nestedData[] = Number::format($row->no_of_days);
-            $nestedData[] = Number::currency($row->price);
-            $nestedData[] = Number::currency($row->discount_amt);
-            $nestedData[] = Number::currency($row->tax_amount);
-            $nestedData[] = Number::currency($row->net_amount);
-            if($row->status == 'Buy Now')
-                $nestedData[] = '<span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">'.$row->status.'</span>';
-            else if($row->status == 'Coming Soon')
-                $nestedData[] = '<span class="kt-badge  kt-badge--primary kt-badge--inline kt-badge--pill">'.$row->status.'</span>';
-            else if($row->status == 'Enquiry')
-                $nestedData[] = '<span class="kt-badge  kt-badge--info kt-badge--inline kt-badge--pill">'.$row->status.'</span>';
-            else if($row->status == 'Pending')
-                $nestedData[] = '<span class="kt-badge  kt-badge--warning kt-badge--inline kt-badge--pill">'.$row->status.'</span>';
-            $nestedData[] = '<a title="Edit Package" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'Packages', 'action' => 'edit', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md edit"><i class="la la-edit"></i></a> | <a title="View Package Benfits" href="'.Router::url(['prefix'=>'Admin','controller' => 'PackageBenefits', 'action' => 'index', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md view"><i class="la la-eye"></i></a>';
+            $i++;
+            $nestedData[] = $i;
+            $nestedData[] = $row->title;
+            $nestedData[] = '<a title="Edit Package Benefit" data-url="'.Router::url(['prefix'=>'Admin','controller' => 'PackageBenefits', 'action' => 'edit', $row->id]).'" class="btn btn-sm btn-clean btn-icon btn-icon-md edit"><i class="la la-edit"></i></a>';
             $data[] = $nestedData;
-    		$i++;
     	}
         $json_data = array(
 			"draw"            => intval( $requestData['draw'] ),
@@ -149,19 +134,22 @@ class PackageBenefitsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id="")
     {
+        $id = enc_dec(2, $id);
         $packageBenefit = $this->PackageBenefits->newEmptyEntity();
         if ($this->request->is('post')) {
             $packageBenefit = $this->PackageBenefits->patchEntity($packageBenefit, $this->request->getData());
             if ($this->PackageBenefits->save($packageBenefit)) {
                 $this->Flash->success(__('The package benefit has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
+                echo JSON_encode(array('status'=>1, 'message'=>'Package Benefit has been saved successfully!')); exit;
             }
             $this->Flash->error(__('The package benefit could not be saved. Please, try again.'));
+            echo JSON_encode(array('status'=>2, 'message'=>'The package benefit could not be saved. Please, try again.')); exit;
         }
-        $this->set(compact('packageBenefit'));
+        $this->set(compact('packageBenefit', 'id'));
     }
 
     /**
@@ -181,9 +169,11 @@ class PackageBenefitsController extends AppController
             if ($this->PackageBenefits->save($packageBenefit)) {
                 $this->Flash->success(__('The package benefit has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
+                echo JSON_encode(array('status'=>1, 'message'=>'Package Benefit has been updated successfully!')); exit;
             }
             $this->Flash->error(__('The package benefit could not be saved. Please, try again.'));
+            echo JSON_encode(array('status'=>2, 'message'=>'The package benefit could not be saved. Please, try again.')); exit;
         }
         $this->set(compact('packageBenefit'));
     }
@@ -206,5 +196,85 @@ class PackageBenefitsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    public function downloadExcel($type, $id = null){
+        ini_set('memory_limit', '-1');
+        $id = enc_dec(2, $id);
+        $PackageBenefits = $this->getTableLocator()->get('PackageBenefits')
+                    ->find()->contain(['Packages'])->where(['package_id'=>$id]);
+        $spreadsheet = new Spreadsheet();
+        //Set document properties
+        $spreadsheet->getProperties()
+                    ->setCreator('Accordance India')
+                    ->setLastModifiedBy($this->request->getSession()->read('Auth.name'))
+                    ->setTitle('Package Benefits')
+                    ->setSubject('')
+                    ->setDescription('')
+                    ->setKeywords('')
+                    ->setCategory('Package Benefits');
+        // Add some data
+        $headerArray = ['Id', 'Package', 'Name'];
+        $spreadsheet->setActiveSheetIndex(0);
+        $spreadsheet->getActiveSheet()
+                    ->fromArray(
+                        $headerArray,   // The data to set
+                        NULL,        // Array values with this value will not be set
+                        'A1'         // Top left coordinate of the worksheet range where we want to set these values (default is A1)
+                    )
+                    ->setTitle('Package Benefits');
+        $spreadsheet->getActiveSheet()->setAutoFilter(
+            $spreadsheet->getActiveSheet()
+                ->calculateWorksheetDimension()
+        );
+        $styleArray = [
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ]
+        ];
+
+        $spreadsheet->getActiveSheet()->getStyle('A1:D1')->applyFromArray($styleArray);
+        $spreadsheet->getActiveSheet()->getStyle('A1:D1')->getAlignment()->setHorizontal('center');
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $i=2;$counter=0;
+        foreach ( $PackageBenefits->all() as $row){
+            $spreadsheet->getActiveSheet()->setCellValue('A'.$i, ++$counter);
+            $spreadsheet->getActiveSheet()->setCellValue('B'.$i, $row->package->name);
+            $spreadsheet->getActiveSheet()->setCellValue('C'.$i, $row->title);
+            $i++;
+        }
+        ob_end_clean();
+        if($type == 'excel'){
+            $filename='PackageBenefits.xlsx'; //save our workbook as this file name
+            $writer = new Xlsx($spreadsheet);
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="'. $filename);
+            header('Cache-Control: max-age=0');
+            $writer->setPreCalculateFormulas(true);
+            //$writer ->save(WWW_ROOT . '/files/ example.xlsx');
+            $writer->save('php://output'); // download file
+        }
+        if($type == 'csv'){
+            $filename='PackageBenefits.csv'; //save our workbook as this file name
+            $writer = new Csv($spreadsheet);
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment;filename="'. $filename);
+            header('Cache-Control: max-age=0');
+            $writer->save('php://output'); // download file
+        }
+        if($type == 'pdf'){
+            $filename='PackageBenefits.pdf'; //save our workbook as this file name
+            $writer = new Mpdf($spreadsheet);
+            $writer->setPreCalculateFormulas(false);
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment;filename="'. $filename);
+            header('Cache-Control: max-age=0');
+            header("Cache-control: private"); //use this to open files directly
+            $writer->save('php://output'); // download file
+        }
+        die;
     }
 }

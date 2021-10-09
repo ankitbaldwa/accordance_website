@@ -32,10 +32,14 @@ class UsersController extends AppController
             $result = $this->Authentication->getResult();
             // regardless of POST or GET, redirect if user is logged in
             if ($result->isValid()) {
-                $target = $this->loginRedirectByRole();
-                //$redirect = $this->request->getQuery('redirect', $target);
-                //echo JSON_encode(array('status'=>0, 'url'=>$target));exit;
-                return $this->redirect($target);
+                if(empty($this->request->getQuery('redirect'))){
+                    $target = $this->loginRedirectByRole();
+                    //$redirect = $this->request->getQuery('redirect', $target);
+                    //echo JSON_encode(array('status'=>0, 'url'=>$target));exit;
+                    return $this->redirect($target);
+                } else {
+                    return $this->redirect($this->request->getQuery('redirect'));
+                }
             }
             // display error if user submitted and authentication failed
             if ($this->request->is('post') && !$result->isValid()) {
@@ -55,7 +59,7 @@ class UsersController extends AppController
                 break;
             default:
                 $url = ['unknown role url'];
-                break;                        
+                break;
         }
         return $url;
         //return Router::url($url);
@@ -66,7 +70,7 @@ class UsersController extends AppController
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
     public function dashboard(){
-        
+
     }
     /**
      * Index method
@@ -164,7 +168,7 @@ class UsersController extends AppController
         $helper = new Helper\Sample();
         $helper->log( 'Create new Spreadsheet object' );
         $spreadsheet  = new Spreadsheet();
-        //Set document properties 
+        //Set document properties
         $helper->log('Set document properties');
         $spreadsheet ->getProperties()
         ->setCreator('shubh ')
@@ -174,7 +178,7 @@ class UsersController extends AppController
         ->setDescription('Example')
         ->setKeywords('office PhpSpreadsheet php')
         ->setCategory('Example');
-        // Add some data 
+        // Add some data
         $helper ->log('Add some data');
         $spreadsheet ->setActiveSheetIndex(0)
         ->setCellValue('A1', 'Hello')
@@ -185,7 +189,7 @@ class UsersController extends AppController
         $spreadsheet ->getActiveSheet()
         ->setTitle('Simple');
         $filename='Report_For_Month.xlsx'; //save our workbook as this file name
- 
+
         ob_end_clean();
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.ms-excel');

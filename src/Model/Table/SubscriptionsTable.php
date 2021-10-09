@@ -105,10 +105,10 @@ class SubscriptionsTable extends Table
             ->notEmptyString('company_db_username');
 
         $validator
-            ->scalar('comapny_db_password')
-            ->maxLength('comapny_db_password', 255)
-            ->requirePresence('comapny_db_password', 'create')
-            ->notEmptyString('comapny_db_password');
+            ->scalar('company_db_password')
+            ->maxLength('company_db_password', 255)
+            ->requirePresence('company_db_password', 'create')
+            ->notEmptyString('company_db_password');
 
         $validator
             ->scalar('company_db_database')

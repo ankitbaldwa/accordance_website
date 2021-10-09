@@ -71,7 +71,7 @@ class ProductFeaturesTable extends Table
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
-        $validator
+        /* $validator
             ->scalar('description')
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
@@ -85,7 +85,7 @@ class ProductFeaturesTable extends Table
         $validator
             ->scalar('status')
             ->requirePresence('status', 'create')
-            ->notEmptyString('status');
+            ->notEmptyString('status'); */
 
         return $validator;
     }

@@ -1,5 +1,5 @@
 function loadINIT(){
-    
+
 }
 jQuery(document).ready(function() {
     jQuery(document).off('click', '#kt_product_feature_submit');
@@ -10,11 +10,12 @@ jQuery(document).ready(function() {
                 name: {
                     required: true
                 },
-                /* description: {
-                    required: true
-                }, */
+                description: {
+                    required: false
+                },
                 image: {
-                    extension: "jpg|jpeg|png|JPG|JPEG|PNG"
+                    extension: "jpg|jpeg|png|JPG|JPEG|PNG",
+                    required: false
                 }
             },
             messages: {
@@ -22,7 +23,7 @@ jQuery(document).ready(function() {
                     extension: "Please select valid image format as jpg, jpeg or png.",
                 }
             },
-    
+
             errorPlacement: function(error, element) {
                 var group = element.closest('.input-group');
                 if (group.length) {
@@ -31,7 +32,7 @@ jQuery(document).ready(function() {
                     element.after(error.addClass('invalid-feedback'));
                 }
             },
-    
+
             //display error alert on form submit
             invalidHandler: function(event, validator) {
                 swal.fire({
@@ -44,7 +45,7 @@ jQuery(document).ready(function() {
                     }
                 });
             },
-    
+
             submitHandler: function (form) {
                 //form[0].submit(); // submit the form
                 //console.log(form);return false;

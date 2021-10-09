@@ -11,11 +11,11 @@
 		<?= $this->element('aside'); ?>
 		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
 			<?= $this->element('header'); ?>
-			
+
 			<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
-				<?php echo $this->element('content_head', array('page_name'=>'Manage Package Benefits')); ?>
-				<!-- begin:: Content --><?php //pr($this->request->getAttribute('params')['_matchedRoute']); ?>
+				<?php echo $this->element('content_head', array('page_name'=>'Manage Package Benefits of '.$Packages->name)); ?>
+				<!-- begin:: Content --><?php //pr($Packages->name); ?>
 				<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
                     <div class="kt-portlet kt-portlet--mobile">
                         <div class="kt-portlet__head kt-portlet__head--lg">
@@ -49,10 +49,10 @@
                                                         </a>
                                                     </li>-->
                                                     <li class="kt-nav__item">
-                                                        <?= $this->Html->link('<i class="kt-nav__link-icon la la-file-excel-o"></i><span class="kt-nav__link-text">Excel</span>', ['prefix'=>'Admin','controller' => 'Packages','action' => 'download_excel','excel'], ['class' => 'kt-nav__link', 'escape' => false, 'title'=>'Export Packages In Excel']) ?>
+                                                        <?= $this->Html->link('<i class="kt-nav__link-icon la la-file-excel-o"></i><span class="kt-nav__link-text">Excel</span>', ['prefix'=>'Admin','controller' => 'PackageBenefits','action' => 'download_excel','excel',enc_dec(1, $id)], ['class' => 'kt-nav__link', 'escape' => false, 'title'=>'Export Package Benefits In Excel']) ?>
                                                     </li>
                                                     <li class="kt-nav__item">
-                                                        <?= $this->Html->link('<i class="kt-nav__link-icon la la-file-text-o"></i><span class="kt-nav__link-text">CSV</span>', ['prefix'=>'Admin','controller' => 'Packages','action' => 'download_excel','csv'], ['class' => 'kt-nav__link', 'escape' => false, 'title'=>'Export Packages In CSV']) ?>
+                                                        <?= $this->Html->link('<i class="kt-nav__link-icon la la-file-text-o"></i><span class="kt-nav__link-text">CSV</span>', ['prefix'=>'Admin','controller' => 'PackageBenefits','action' => 'download_excel','csv',enc_dec(1, $id)], ['class' => 'kt-nav__link', 'escape' => false, 'title'=>'Export Package Benefits In CSV']) ?>
                                                     </li>
                                                     <!--<li class="kt-nav__item">
                                                         <?php //$this->Html->link('<i class="kt-nav__link-icon la la-file-pdf-o"></i><span class="kt-nav__link-text">PDF</span>', ['prefix'=>'Admin','controller' => 'MstCountries','action' => 'download_excel','pdf'], ['class' => 'kt-nav__link', 'escape' => false, 'title'=>'Export Countries In PDF']) ?>
@@ -61,7 +61,9 @@
                                             </div>
                                         </div>
                                         &nbsp;
-                                        <?= $this->Html->link('<i class="la la-plus"></i> New Package Benefits', 'javascript:void(0)', ['class' => 'btn btn-brand btn-elevate btn-icon-sm add', 'escape' => false, 'data-url'=>$this->Url->build(['prefix'=>'Admin','controller' => 'PackageBenefits','action' => 'add']), 'title'=>'Add Package Benefits']) ?>
+                                        <?= $this->Html->link('<i class="la la-plus"></i> New Package Benefits', 'javascript:void(0)', ['class' => 'btn btn-brand btn-elevate btn-icon-sm add', 'escape' => false, 'data-url'=>$this->Url->build(['prefix'=>'Admin','controller' => 'PackageBenefits','action' => 'add',enc_dec(1, $id)]), 'title'=>'Add Package Benefits']) ?>
+
+                                        <?= $this->Html->link('<i class="la la-arrow-left"></i> Back', $this->Url->build(['prefix'=>'Admin','controller' => 'Packages','action' => 'index', '_full' => true]), ['class' => 'btn btn-outline-dark btn-elevate-hover btn-pill', 'escape' => false, 'title'=>'Back']) ?>
                                     </div>
                                 </div>
                             </div>
@@ -118,16 +120,12 @@
 <?php //$this->Url->build(['prefix'=>'Admin', 'controller'=>'Packages', 'action'=>'ajax']) ?>
 <!--end::Modal-->
 <script>
-    var url = "<?= $this->Url->build(['prefix'=>'Admin', 'controller'=>'PackageBenefits','action'=>'ajax']); ?>";
+    var url = "<?= $this->Url->build(['prefix'=>'Admin', 'controller'=>'PackageBenefits','action'=>'ajax',enc_dec(1, $id)]); ?>";
     var column = [
 				{
 					targets: -1,
 					title: 'Actions',
 					orderable: false,
-					className: 'text-center'
-				},
-				{
-					targets: -2,
 					className: 'text-center'
 				}
 			];

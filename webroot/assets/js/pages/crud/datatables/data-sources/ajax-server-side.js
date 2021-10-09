@@ -5,7 +5,7 @@ var KTDatatablesDataSourceAjaxServer = function() {
 		var table = $('#kt_table_1');
 		// begin first table
 		table.DataTable({
-			responsive: true,
+			responsive: false,
 			scrollY: '35vh',
 			scrollX: true,
 			scrollCollapse: true,
@@ -96,7 +96,7 @@ jQuery(document).on('click','.edit, .add, .view', function(){
 	var $this = jQuery(this);
 	var url = $this.attr('data-url');
 	jQuery.ajax({
-		'url': url, 
+		'url': url,
 		'type': 'GET',
 		'headers': {
 			'X-CSRF-Token': csrfToken
@@ -129,7 +129,7 @@ jQuery(document).on('click','.status', function(e) {
 	}).then(function(result) {
 		if (result.value) {
 			jQuery.ajax({
-				'url': url, 
+				'url': url,
 				'type': 'POST',
 				'headers': {
 					'X-CSRF-Token': csrfToken
