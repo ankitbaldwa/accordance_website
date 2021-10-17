@@ -1,10 +1,10 @@
     <!-- banner-section -->
-    <section class="banner-style-four" style="background-image: url(<?= WWW_ROOT ?>images/icons/banner-1.png);">
-        <div class="pattern-bg" style="background-image: url(<?= WWW_ROOT ?>images/icons/pattern-5.png);"></div>
+    <section class="banner-style-four" style="background-image: url(<?= $this->Url->assetUrl('images/icons/banner-1.png') ?>);">
+        <div class="pattern-bg" style="background-image: url(<?= $this->Url->assetUrl('images/icons/pattern-5.png') ?>);"></div>
         <div class="anim-icons">
             <!-- <div class="icon icon-1"><img src="images/icons/anim-icon-1.png" alt=""></div> -->
-            <div class="icon icon-2 rotate-me"><img src="<?= WWW_ROOT ?>images/icons/anim-icon-2.png" alt=""></div>
-            <div class="icon icon-3 rotate-me"><img src="<?= WWW_ROOT ?>images/icons/anim-icon-3.png" alt=""></div>
+            <div class="icon icon-2 rotate-me"><img src="<?= $this->Url->assetUrl('images/icons/anim-icon-2.png') ?>" alt=""></div>
+            <div class="icon icon-3 rotate-me"><img src="<?= $this->Url->assetUrl('images/icons/anim-icon-3.png') ?>" alt=""></div>
         </div>
         <div class="container">
             <div class="row">
@@ -20,8 +20,8 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 image-column">
                     <div class="image-box">
-                        <div class="layer-bg" style="background-image: url(<?= WWW_ROOT ?>images/icons/leaf-1.png);"></div>
-                        <figure class="image clearfix float-bob-y" style="margin-right: 30%;"><img src="<?= WWW_ROOT ?>images/resource/illustration-6.png" alt=""></figure>
+                        <div class="layer-bg" style="background-image: url(<?= $this->Url->assetUrl('images/icons/leaf-1.png') ?>);"></div>
+                        <figure class="image clearfix float-bob-y" style="margin-right: 30%;"><img src="<?= $this->Url->assetUrl('images/resource/illustration-6.png') ?>" alt=""></figure>
                     </div>
                 </div>
             </div>
@@ -117,9 +117,9 @@
                     <div class="col-lg-7 col-md-12 col-sm-12 image-column">
                         <div id="image_block_14">
                             <div class="image-box">
-                                <div class="bg-layer" style="background-image: url(<?= WWW_ROOT ?>images/icons/image-shap-5.png);"></div>
-                                <figure class="image image-1 clearfix wow slideInRight animated" data-wow-delay="00ms" data-wow-duration="1500ms"><img src="<?= WWW_ROOT ?>images/resource/tab-1.png" alt=""></figure>
-                                <figure class="image image-2 wow slideInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms"><img src="<?= WWW_ROOT ?>images/resource/phone-6.png" alt=""></figure>
+                                <div class="bg-layer" style="background-image: url(<?= $this->Url->assetUrl('images/icons/image-shap-5.png') ?>);"></div>
+                                <figure class="image image-1 clearfix wow slideInRight animated" data-wow-delay="00ms" data-wow-duration="1500ms"><img src="<?= $this->Url->assetUrl('images/resource/tab-1.png') ?>" alt=""></figure>
+                                <figure class="image image-2 wow slideInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms"><img src="<?= $this->Url->assetUrl('images/resource/phone-6.png') ?>" alt=""></figure>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                     <div class="col-lg-7 col-md-12 col-sm-12 image-column">
                         <div id="image_block_15">
                             <div class="image-box">
-                                <figure class="image clearfix wow slideInLeft animated" data-wow-delay="00ms" data-wow-duration="1500ms"><img src="<?= WWW_ROOT ?>images/resource/screen-1.png" alt=""></figure>
+                                <figure class="image clearfix wow slideInLeft animated" data-wow-delay="00ms" data-wow-duration="1500ms"><img src="<?= $this->Url->assetUrl('images/resource/screen-1.png') ?>" alt=""></figure>
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                             <div class="col-lg-4 col-md-6 col-sm-12 pricing-column">
                                 <div class="pricing-block-one">
                                     <div class="pricing-table">
-                                        <figure class="image"><img src="<?= WWW_ROOT ?>images/icons/price-icon-<?= $i++ ?>.png" alt=""></figure>
+                                        <figure class="image"><img src="<?= $this->Url->assetUrl('images/icons/price-icon-'.$i++.'.png') ?>" alt=""></figure>
                                         <div class="table-header">
                                             <h3 class="title"><?= $price->name ?></h3>
                                             <h2 class="price"><?= $price->net_amount ?><span>/Mo</span></h2>
@@ -347,7 +347,7 @@
                 <div class="col-lg-6 col-md-12 col-sm-12 image-column">
                     <div id="iamge_block_05">
                         <div class="image-box wow slideInLeft animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                            <figure class="image float-bob-y"><img src="<?= WWW_ROOT ?>images/resource/subscribe-1.png" alt=""></figure>
+                            <figure class="image float-bob-y"><img src="<?= $this->Url->assetUrl('images/resource/subscribe-1.png') ?>" alt=""></figure>
                         </div>
                     </div>
                 </div>
