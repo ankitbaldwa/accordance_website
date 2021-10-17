@@ -69,13 +69,13 @@ class AppController extends Controller
         return $query;
     }
     protected function _getProducts($status){
-        $product = $this->getTableLocator()->get('products');
+        $product = $this->getTableLocator()->get('Products');
         $query = $product->find()->select(['id', 'name', 'slug']);
         $query->where(['status'=> $status]);
         return $query;
     }
     protected function _getTestimonials($status){
-        $testimonial = $this->getTableLocator()->get('testimonials');
+        $testimonial = $this->getTableLocator()->get('Testimonials');
         $query = $testimonial->find()->select(['id', 'name', 'detail']);
         $query->where(['status'=> $status]);
         return $query;
