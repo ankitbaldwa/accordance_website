@@ -104,20 +104,14 @@
                                 <div class="kt-section__content--border kt-section__content--fit">
                                     <ul class="kt-nav kt-nav--bold kt-nav--md-space kt-nav--v4" role="tablist">
                                         <li class="kt-nav">
-                                            <span class="kt-nav__link-text color-white">Buying</span>
+                                            <a class="kt-nav__link-text color-white" href="<?= $this->Url->build(['_name'=> 'Home']) ?>">Home</a>
                                         </li>
                                         <li class="kt-nav">
-                                            <span class="kt-nav__link-text color-white">Product Support</span>
+                                            <a class="kt-nav__link-text color-white" href="<?= $this->Url->build(['_name'=> 'contact']) ?>">Contact</a>
                                         </li>
-                                        <li class="kt-nav">
-                                            <span class="kt-nav__link-text color-white">Account Management</span>
-                                        </li>
-                                        <li class="kt-nav">
-                                            <span class="kt-nav__link-text color-white">Product Licenses</span>
-                                        </li>
-                                        <li class="kt-nav">
-                                            <span class="kt-nav__link-text color-white">Downloads</span>
-                                        </li>
+                                        <?php foreach ($footer as $key => $value) { ?>
+                                            <li class="kt-nav"><a class="kt-nav__link-text color-white" href="<?= $this->Url->build(["controller"=>"pages", "action"=>"view",$value->slug]) ?>"><?= $value->title ?></a></li>
+                                        <?php } ?>
                                     </ul>
                                 </div>
                             </div>

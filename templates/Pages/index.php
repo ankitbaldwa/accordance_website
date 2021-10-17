@@ -110,7 +110,7 @@
                             <div class="content-box wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="1500ms">
                                 <div class="sec-title"><h2>The simplest way to create and send e-invoices</h2></div>
                                 <div class="text">Get everything you'll ever need to manage your paperwork.Best GST E-Invoices App for Accounting, GST Reports, Stock Inventory Management for Small, medium and large Businesses.</div>
-                                <div class="btn-box"><a href="#" class="theme-btn">Learn More<i class="fas fa-angle-right"></i></a></div>
+                                <div class="btn-box"><a href="<?= $this->Url->build(["controller"=>"pages", "action"=>"view",$main->slug]) ?>" class="theme-btn">Learn More<i class="fas fa-angle-right"></i></a></div>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                             <div class="content-box wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="1500ms">
                                 <div class="sec-title"><h2>Let's make something great!</h2></div>
                                 <div class="text">At Accordance, we pride ourselves on our commitment to our clients. We assist small, medium and large companies in building their professional web & mobile presence.</div>
-                                <div class="btn-box"><a href="#" class="theme-btn">Learn More<i class="fas fa-angle-right"></i></a></div>
+                                <div class="btn-box"><a href="<?= $this->Url->build(["controller"=>"pages", "action"=>"view",$main->slug]) ?>" class="theme-btn">Learn More<i class="fas fa-angle-right"></i></a></div>
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
 
 
     <!-- testimonial-style-eight -->
-    <section class="testimonial-style-eight">
+    <!--<section class="testimonial-style-eight">
         <div class="image-layer" style="background-image: url(images/icons/testimonial-bg-5.png);"></div>
         <div class="container">
             <div class="sec-title center">
@@ -166,14 +166,13 @@
                         <div class="icon-box"><i class="fas fa-quote-right"></i></div>
                         <div class="author-info">
                             <h5 class="name"><?= $value->name ?></h5>
-                            <!-- <span class="designation">Manager</span> -->
                         </div>
                     </div>
                 </div>
                 <?php } ?>
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- testimonial-style-eight end -->
 
 
@@ -188,28 +187,32 @@
                 <div class="tabs-content">
                     <div class="tab active-tab" id="tab-1">
                         <div class="row">
+                            <?php $i=1;foreach($pricing as $price){ ?>
                             <div class="col-lg-4 col-md-6 col-sm-12 pricing-column">
                                 <div class="pricing-block-one">
                                     <div class="pricing-table">
-                                        <figure class="image"><img src="images/icons/price-icon-1.png" alt=""></figure>
+                                        <figure class="image"><img src="images/icons/price-icon-<?= $i++ ?>.png" alt=""></figure>
                                         <div class="table-header">
-                                            <h3 class="title">Basic</h3>
-                                            <h2 class="price">05.00<span>/Mo</span></h2>
+                                            <h3 class="title"><?= $price->name ?></h3>
+                                            <h2 class="price"><?= $price->net_amount ?><span>/Mo</span></h2>
                                         </div>
                                         <div class="table-content">
-                                            <ul> 
-                                                <li>One User</li>
-                                                <li>Ui elements 1000</li>
-                                                <li>E-mail support</li>
+                                            <ul>
+                                                <?php foreach($price->package_benefits as $Benefit){ ?>
+                                                <li><?= $Benefit->title ?></li>
+                                                <?php } ?>
                                             </ul>
                                         </div>
                                         <div class="table-footer">
-                                            <a href="#" class="theme-btn-two">Purchase</a>
+                                            <?php if($price->status == 'Buy Now'){ ?>
+                                            <a href="" class="theme-btn-two">Sign Up For Free</a>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 pricing-column">
+                            <?php } ?>
+                            <!--<div class="col-lg-4 col-md-6 col-sm-12 pricing-column">
                                 <div class="pricing-block-one">
                                     <div class="pricing-table">
                                         <figure class="image"><img src="images/icons/price-icon-2.png" alt=""></figure>
@@ -218,7 +221,7 @@
                                             <h2 class="price">25.00<span>/Mo</span></h2>
                                         </div>
                                         <div class="table-content">
-                                            <ul> 
+                                            <ul>
                                                 <li>One User</li>
                                                 <li>Ui elements 1000</li>
                                                 <li>E-mail support</li>
@@ -240,7 +243,7 @@
                                             <h2 class="price">50.00<span>/Mo</span></h2>
                                         </div>
                                         <div class="table-content">
-                                            <ul> 
+                                            <ul>
                                                 <li>One User</li>
                                                 <li>Ui elements 1000</li>
                                                 <li>E-mail support</li>
@@ -252,10 +255,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
-                    <div class="tab" id="tab-2">
+                    <!--<div class="tab" id="tab-2">
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-12 pricing-column">
                                 <div class="pricing-block-one">
@@ -266,7 +269,7 @@
                                             <h2 class="price">30.00<span>/Mo</span></h2>
                                         </div>
                                         <div class="table-content">
-                                            <ul> 
+                                            <ul>
                                                 <li>One User</li>
                                                 <li>Ui elements 1000</li>
                                                 <li>E-mail support</li>
@@ -287,7 +290,7 @@
                                             <h2 class="price">60.00<span>/Mo</span></h2>
                                         </div>
                                         <div class="table-content">
-                                            <ul> 
+                                            <ul>
                                                 <li>One User</li>
                                                 <li>Ui elements 1000</li>
                                                 <li>E-mail support</li>
@@ -309,7 +312,7 @@
                                             <h2 class="price">99.00<span>/Mo</span></h2>
                                         </div>
                                         <div class="table-content">
-                                            <ul> 
+                                            <ul>
                                                 <li>One User</li>
                                                 <li>Ui elements 1000</li>
                                                 <li>E-mail support</li>
@@ -323,14 +326,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>           
+                    </div>-->
                 </div>
-                <div class="tab-btn-box">
+                <!--<div class="tab-btn-box">
                     <ul class="tab-btns tab-buttons clearfix">
                         <li class="tab-btn active-btn" data-tab="#tab-1">Monthly</li>
                         <li class="tab-btn" data-tab="#tab-2">Yearly</li>
                     </ul>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>

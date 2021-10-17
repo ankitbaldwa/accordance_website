@@ -58,7 +58,9 @@ class AppController extends Controller
         $product = $this->_getProducts(1)->all();
         $testimonial = $this->_getTestimonials(1)->all();
         $product_count = $this->_getProducts(1)->count();
-        $this->set(compact('main', 'footer', 'product','product_count', 'testimonial'));
+        $pricing = $this->_getPricing()->all();
+        //pr($pricing);die;
+        $this->set(compact('main', 'footer', 'product','product_count', 'testimonial','pricing'));
     }
     protected function _getData($type){
         $page = $this->getTableLocator()->get('Pages');
@@ -76,6 +78,12 @@ class AppController extends Controller
         $testimonial = $this->getTableLocator()->get('testimonials');
         $query = $testimonial->find()->select(['id', 'name', 'detail']);
         $query->where(['status'=> $status]);
+        return $query;
+    }
+    protected function _getPricing(){
+        $pricing = $this->getTableLocator()->get('Packages');
+        $query = $pricing->find()->select(['Packages.id','Packages.name','Packages.currency','Packages.net_amount','Packages.is_monthly','Packages.status'])->contain('PackageBenefits');
+        $query->where(['Packages.status'=>'Buy Now']);
         return $query;
     }
 }

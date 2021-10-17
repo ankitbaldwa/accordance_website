@@ -100,7 +100,7 @@
 
     <!-- counter-style-three -->
     <?php if($page->slug == 'about-us') { ?>
-    <section class="counter-style-three">
+    <!--<section class="counter-style-three">
         <div class="anim-icons">
             <div class="icon icon-1 rotate-me"></div>
             <div class="icon icon-2"></div>
@@ -109,7 +109,6 @@
         <div class="container">
             <div class="sec-title center">
                 <h2>Some Happy Clients</h2>
-                <!-- <p>The full monty burke posh excuse my French Richard cheeky bobby spiffing crikey<br />Why gormless, pear shaped.!</p> -->
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-12 counter-block">
@@ -150,7 +149,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <?php } ?>
     <!-- counter-style-three end -->
 
@@ -191,7 +190,7 @@
 
     <!-- clients-style-four -->
     <?php if($page->slug == 'about-us') { ?>
-    <section class="clients-style-four style-five">
+    <!--<section class="clients-style-four style-five">
         <div class="image-layer" style="background-image: url(<?= $this->Url->assetUrl('images/icons/layer-image-7.png') ?>);"></div>
         <div class="container">
             <div class="clients-carousel owl-carousel owl-theme owl-dots-none">
@@ -201,6 +200,6 @@
                 <figure class="image-box"><a href="#"><img src="<?= $this->Url->assetUrl('images/clients/client-4.png') ?>" alt=""></a></figure>
             </div>
         </div>
-    </section>
+    </section>-->
     <?php } ?>
     <!-- clients-style-four end -->

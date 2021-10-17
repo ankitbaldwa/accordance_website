@@ -104,6 +104,10 @@ $routes->prefix('admin', function (RouteBuilder $routes) {
     $routes->connect('/subscriptions', ['prefix'=>'Admin','controller' => 'Subscriptions', 'action' => 'index','plugin'=>null], ['_name'=>'subscriptions']);
     $routes->connect('/requests', ['prefix'=>'Admin','controller' => 'Requests', 'action' => 'index','plugin'=>null], ['_name'=>'requests']);
     $routes->connect('/enquires', ['prefix'=>'Admin','controller'=>'Enquiries','action'=>'index','plugin'=>null],['_name'=>'enquires']);
+    $routes->connect('/contacts', ['prefix'=>'Admin','controller'=>'Contacts','action'=>'index','plugin'=>null],['_name'=>'contacts']);
+    $routes->connect('/users', ['prefix'=>'Admin','controller'=>'Users','action'=>'index','plugin'=>null],['_name'=>'users']);
+    $routes->connect('/pages', ['prefix'=>'Admin','controller'=>'Pages','action'=>'index','plugin'=>null],['_name'=>'pages']);
+    $routes->connect('/settings', ['prefix'=>'Admin','controller'=>'Settings','action'=>'index','plugin'=>null],['_name'=>'settings']);
     $routes->plugin('LocationManager', ['path' => '/location-manager'], function (RouteBuilder $routes) {
         // Routes connected here are prefixed with '/debugger' and
         // have the plugin route element set to 'DebugKit'.
