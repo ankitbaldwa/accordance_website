@@ -83,10 +83,10 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'host' => 'localhost',
-            'port' => 25,
-            'username' => null,
-            'password' => null,
+            'host' => 'tls://smtp.gmail.com',
+            'port' => 465,
+            'username' => 'ingeniousglobalservices@gmail.com',
+            'password' => 'lowolyomopnrbkvc',
             'client' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
