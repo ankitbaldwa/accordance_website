@@ -23,6 +23,8 @@ use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Routing\Router;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\Email;
 
 /**
  * Static content controller
@@ -34,7 +36,7 @@ use Cake\Routing\Router;
 class PagesController extends AppController
 {
     public function index(){
-        
+
     }
     public function view($slug){
         if(empty($slug))
@@ -44,7 +46,34 @@ class PagesController extends AppController
         $this->set('page', $query->first());
     }
     public function contact(){
-        
+
+    }
+    public function request(){
+        $this->viewBuilder()->setLayout('ajax');
+        if ($this->request->is('post')) {
+            $RequestsTable = $this->getTableLocator()->get('Requests');
+            $request = $RequestsTable->newEmptyEntity();
+            $request->name = $this->request->getData()['name'];
+            $request->email = $this->request->getData()['email'];
+            $request->mobile = $this->request->getData()['mobile'];
+            $request->message = $this->request->getData()['message'];
+            //$request->created = date('Y-m-d H:i:s');
+            if ($RequestsTable->save($request)) {
+                echo JSON_encode(array('status'=>1, 'message'=>'Request has been saved successfully!')); exit;
+            }
+            echo JSON_encode(array('status'=>2, 'message'=>'The request could not be saved. Please, try again.')); exit;
+        }
+        exit;
+    }
+    public function testMail(){
+        $this->viewBuilder()->setLayout('ajax');
+        $mailer = new Mailer('default');
+        $mailer->setTo('ankitbaldwa1992@gmail.com')
+            ->setSubject('About')
+            ->deliver('My message');
+
+        Email::deliver('ankitbaldwa1992@gmail.com', 'Subject', 'Message', ['from' => 'no-reply@accordance.co.in']);
+        echo "Mail sent";die;
     }
     /**
      * Displays a view

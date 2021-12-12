@@ -8,7 +8,7 @@ jQuery(document).ready(function() {
                     required: true
                 }
             },
-    
+
             errorPlacement: function(error, element) {
                 var group = element.closest('.input-group');
                 if (group.length) {
@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
                     element.after(error.addClass('invalid-feedback'));
                 }
             },
-    
+
             //display error alert on form submit
             invalidHandler: function(event, validator) {
                 swal.fire({
@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
                     }
                 });
             },
-    
+
             submitHandler: function (form) {
                 //form[0].submit(); // submit the form
                 //console.log(form);return false;
@@ -64,5 +64,5 @@ jQuery(document).ready(function() {
     });
 });
 function loadINIT(){
-    
+
 }

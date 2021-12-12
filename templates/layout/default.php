@@ -33,6 +33,7 @@ $cakeDescription = 'Accordance';
 
     <!-- Stylesheets -->
     <?= $this->Html->css(['font-awesome-all', 'flaticon.css', 'owl', 'bootstrap', 'jquery.fancybox.min', 'animate', 'style', 'responsive']) ?>
+    <?php echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
 
     <?php $this->fetch('meta') ?>
     <?php $this->fetch('css') ?>
@@ -64,7 +65,7 @@ $cakeDescription = 'Accordance';
                                 <ul class="navigation clearfix">
                                     <li>
                                         <a href="<?= $this->Url->build(['_name'=> 'Home']) ?>">Home</a>
-                                    </li> 
+                                    </li>
                                     <li><a href="<?= $this->Url->build(["controller"=>"pages", "action"=>"view",'slug'=>$main->slug]) ?>"><?= $main->title ?></a>
                                     </li>
                                     <?php if($product_count){ ?>
@@ -75,7 +76,7 @@ $cakeDescription = 'Accordance';
                                             <?php } ?>
                                         </ul>
                                     </li>
-                                    <?php } ?>                          
+                                    <?php } ?>
                                     <li><a href="<?= $this->Url->build(['_name'=> 'contact']) ?>">Contact</a></li>
                                     <li><a href="<?= $this->Url->build(['_name'=> 'login']) ?>">Login</a></li>
                                 </ul>
@@ -103,7 +104,7 @@ $cakeDescription = 'Accordance';
     <div class="mobile-menu">
         <div class="menu-backdrop"></div>
         <div class="close-btn"><i class="fas fa-times"></i></div>
-        
+
         <nav class="menu-box">
             <div class="nav-logo"><a href="<?= $this->Url->build(['_name'=> 'Home']) ?>"><?= $this->Html->image('logo-sm.png', ['alt'=>'Logo']); ?></a></div>
             <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
@@ -204,48 +205,60 @@ $cakeDescription = 'Accordance';
                     <h5 class="modal-title" id="requestDemoLongTitle">Request for Demo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                    </button> 
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-inner">
-                        <form id="request-form" action="#" method="post" data-toggle="validator" novalidate="true">
-                            <p class="form-message"></p>
-                            <div class="row align-items-start">
-                                <div class="col-md-4">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name" id="name">
+                    <section class="contact-section request-section">
+                        <div class="contact-form-area">
+                            <div class="form-inner">
+                                <form method="post" action="<?= $this->Url->build(["controller"=>"pages", "action"=>"request"]) ?>" id="request-form" class="default-form">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-12 col-sm-12 column">
+                                            <div class="form-group">
+                                                <i class="fas fa-user"></i>
+                                                <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name" id="name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-12 col-sm-12 column">
+                                            <div class="form-group">
+                                                <i class="fas fa-envelope"></i>
+                                                <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" name="email" id="email">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-12 col-sm-12 column">
+                                            <div class="form-group">
+                                                <i class="fas fa-phone"></i>
+                                                <input type="text" name="mobile" id="mobile" class="allownumericwithoutdecimal form-control" maxlength="10" placeholder="Mobile" aria-label="Mobile" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                            <div class="form-group">
+                                                <textarea name="message" id="message" row="2" class="form-control" style="height:150px;" placeholder="Your Requirement"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 column">
+                                            <div class="form-group message-btn centred">
+                                                <button type="submit" class="theme-btn-two" id="request" name="submit-form">Submit Now</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" name="email" id="email">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="mobile" id="mobile" class="allownumericwithoutdecimal form-control" maxlength="10" placeholder="Mobile" aria-label="Mobile" aria-describedby="basic-addon1">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 offset-md-3">
-                                    <div class="input-group mb-3">
-                                        <textarea name="message" id="message" row="2" class="form-control" style="height:150px;" placeholder="Your Requirement"></textarea>
-                                    </div>
-                                </div>
-                            </div> <!-- row -->
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="theme-btn-two">Save changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- jequery plugins -->
-    <?= $this->Html->script(['jquery', 'popper.min', 'bootstrap.min', 'owl', 'wow', 'validation', 'jquery.fancybox', 'appear', 'scrollbar', 'jquery.paroller.min', 'tilt.jquery', 'http://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM', 'gmaps', 'map-helper'])?>
+    <?= $this->Html->script(['jquery', 'popper.min', 'bootstrap.min', 'owl', 'wow', 'validation', 'jquery.fancybox', 'appear', 'scrollbar', 'jquery.paroller.min', 'tilt.jquery', 'http://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM', 'gmaps', 'map-helper','sweetalert.min.js'])?>
 
     <!-- main-js -->
+    <?php /* echo $this->Html->scriptBlock(sprintf(
+        'var csrfToken = %s;',
+        json_encode($this->request->getAttribute('csrfToken'))
+    ));  */?>
     <?= $this->Html->script('script') ?>
 </body>
 </html>

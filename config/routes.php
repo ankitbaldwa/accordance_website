@@ -52,7 +52,11 @@ $routes->scope('/', function (RouteBuilder $builder) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, templates/Pages/home.php)...
      */
+    // Register scoped middleware for in scopes.
+    //$builder->applyMiddleware('csrf');
     $builder->connect('/', ['controller' => 'Pages', 'action' => 'index', 'home'],['_name'=> 'Home']);
+    $builder->connect('/request', ['controller' => 'Pages', 'action' => 'request'],['_name'=> 'request']);
+    $builder->connect('/testMail', ['controller' => 'Pages', 'action' => 'testMail'],['_name'=> 'testMail']);
     $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'contact'],['_name'=> 'contact']);
     $builder->connect(
         '/pages/{slug}',

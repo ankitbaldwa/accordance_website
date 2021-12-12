@@ -12,7 +12,7 @@
 		<?= $this->element('aside'); ?>
 		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
 			<?= $this->element('header'); ?>
-			
+
 			<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
 				<?php echo $this->element('content_head', array('page_name'=>'Manage Countries')); ?>
@@ -80,7 +80,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
 
@@ -138,6 +138,6 @@
 			];
 </script>
 <!--begin::Page Scripts(used by this page) -->
-<?= $this->Html->script(['../assets/plugins/custom/datatables/datatables.bundle.js','../assets/js/pages/crud/datatables/data-sources/ajax-server-side.js', '../assets/js/locations/countries.js']) ?>
+<?= $this->Html->script(['../assets/plugins/custom/datatables/datatables.bundle.js','../`assets/js/pages/crud/datatables/data-sources/ajax-server-side.js`', '../assets/js/locations/countries.js']) ?>
 
 <!--end::Page Scripts -->

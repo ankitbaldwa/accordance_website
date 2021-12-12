@@ -61,7 +61,7 @@
                     <div class="contact-form-area">
                         <div class="sec-title center"><h2>Contact us</h2></div>
                         <div class="form-inner">
-                            <form method="post" action="http://azim.commonsupport.com/Appway/sendemail.php" id="contact-form" class="default-form"> 
+                            <form method="post" action="http://azim.commonsupport.com/Appway/sendemail.php" id="contact-form" class="default-form">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-12 col-sm-12 column">
                                         <div class="form-group">
@@ -111,14 +111,14 @@
     <!-- map-section -->
     <section class="map-section">
         <div class="google-map-area">
-            <!--<div 
-                class="google-map" 
-                id="contact-google-map" 
-                data-map-lat="40.712776" 
-                data-map-lng="-74.005974" 
-                data-icon-path="images/icons/map-marker.png"  
-                data-map-title="Brooklyn, New York, United Kingdom" 
-                data-map-zoom="12" 
+            <!--<div
+                class="google-map"
+                id="contact-google-map"
+                data-map-lat="40.712776"
+                data-map-lng="-74.005974"
+                data-icon-path="images/icons/map-marker.png"
+                data-map-title="Brooklyn, New York, United Kingdom"
+                data-map-zoom="12"
                 data-markers='{
                     "marker-1": [40.712776, -74.005974, "<h4>Branch Office</h4><p>77/99 New York</p>","images/icons/map-marker.png"]
                 }'>
