@@ -25,6 +25,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Routing\Router;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\Email;
+use Cake\View\Helper\UrlHelper;
 
 /**
  * Static content controller
@@ -57,7 +58,7 @@ class PagesController extends AppController
             $request->email = $this->request->getData()['email'];
             $request->mobile = $this->request->getData()['mobile'];
             $request->message = $this->request->getData()['message'];
-            //$request->created = date('Y-m-d H:i:s');
+            $this->sendMail($request,'request');
             if ($RequestsTable->save($request)) {
                 echo JSON_encode(array('status'=>1, 'message'=>'Request has been saved successfully!')); exit;
             }
@@ -65,15 +66,47 @@ class PagesController extends AppController
         }
         exit;
     }
-    public function testMail(){
-        $this->viewBuilder()->setLayout('ajax');
+    public function sendMail($data, $type){
+        /* $this->viewBuilder()->setLayout('ajax');
         $mailer = new Mailer('default');
         $mailer->setTo('ankitbaldwa1992@gmail.com')
             ->setSubject('About')
             ->deliver('My message');
 
-        Email::deliver('ankitbaldwa1992@gmail.com', 'Subject', 'Message', ['from' => 'no-reply@accordance.co.in']);
-        echo "Mail sent";die;
+        Email::deliver('ankitbaldwa1992@gmail.com', 'Subject', 'Message', ['from' => 'no-reply@accordance.co.in','replyTo'=>'b.ankit@accordance.co.in']); */
+        $mailBodies = $this->getTableLocator()->get('MailBodies');
+        $query = $mailBodies->find()->where(['type' => $type])->first();
+
+        $settings = $this->getTableLocator()->get('Settings')->find()->toArray();
+
+        $mailSubject = $query->subject;
+        $mailBody = $query->body;
+
+        $mailBody = str_replace('{name}',$data->name, $mailBody);
+        $mailBody = str_replace('{email}',$data->email, $mailBody);
+        $mailBody = str_replace('{mobile}',$data->mobile, $mailBody);
+        $mailBody = str_replace('{message}',$data->message, $mailBody);
+
+        $mailBody = str_replace('{prop_name}',$settings[0]->value, $mailBody);
+        $mailBody = str_replace('{phone}',$settings[2]->value, $mailBody);
+        $mailBody = str_replace('{company_email}',$settings[4]->value, $mailBody);
+        $mailBody = str_replace('{company_address}',$settings[1]->value, $mailBody);
+        $mailBody = str_replace('{logo}',Router::url('/').'img/'.$settings[5]->value,$mailBody);
+
+        $mailer = new Mailer();
+        $mailer->setDomain('www.accordance.co.in');
+        $mailer->setTransport('default');
+        $mailer
+            ->setEmailFormat('both')
+            ->setTo($data->email)
+            ->setReplyTo('b.ankit@accordance.co.in')
+            ->setFrom('no-reply@accordance.co.in')
+            ->setSubject($mailBody)
+            ->viewBuilder()
+                ->setTemplate('default')
+                ->setLayout('default');
+        $result = $mailer->deliver($mailBody);
+        //pr($result);die;
     }
     /**
      * Displays a view

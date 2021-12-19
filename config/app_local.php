@@ -83,10 +83,10 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'host' => 'tls://smtp.gmail.com',
-            'port' => 465,
-            'username' => 'ingeniousglobalservices@gmail.com',
-            'password' => 'lowolyomopnrbkvc',
+            'host' => 'mail.accordance.co.in',
+            'port' => 587,
+            'username' => 'no-reply@accordance.co.in',
+            'password' => 'Password@1992',
             'client' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],

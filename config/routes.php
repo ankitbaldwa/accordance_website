@@ -56,7 +56,6 @@ $routes->scope('/', function (RouteBuilder $builder) {
     //$builder->applyMiddleware('csrf');
     $builder->connect('/', ['controller' => 'Pages', 'action' => 'index', 'home'],['_name'=> 'Home']);
     $builder->connect('/request', ['controller' => 'Pages', 'action' => 'request'],['_name'=> 'request']);
-    $builder->connect('/testMail', ['controller' => 'Pages', 'action' => 'testMail'],['_name'=> 'testMail']);
     $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'contact'],['_name'=> 'contact']);
     $builder->connect(
         '/pages/{slug}',

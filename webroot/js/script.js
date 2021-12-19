@@ -153,10 +153,6 @@
                   });
                 }
             });
-            if(x){
-
-
-            }
         }
     });
 	//Contact Form Validation
