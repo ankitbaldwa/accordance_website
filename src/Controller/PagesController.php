@@ -99,6 +99,7 @@ class PagesController extends AppController
         $mailer
             ->setEmailFormat('both')
             ->setTo($data->email)
+            ->setBcc('ankitbaldwa1992@gmail.com')
             ->setReplyTo('b.ankit@accordance.co.in')
             ->setFrom('no-reply@accordance.co.in')
             ->setSubject($mailBody)
