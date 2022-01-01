@@ -273,6 +273,8 @@ return [
              */
             'charset' => 'utf-8',
             'headerCharset' => 'utf-8',
+            //this enables logging of the mail
+            'log' => true,
         ],
     ],
 

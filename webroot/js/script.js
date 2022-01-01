@@ -124,8 +124,9 @@
                         'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content')
                     },
                     success: function (data) {
-                        var res = $.parseJSON(data);
+                        var res = JSON.parse(data);
                         $('#requestDemo').modal('hide');
+                        //console.log(res);
                         if(res.status == 1){
                             swal({
                                 "title": "",
