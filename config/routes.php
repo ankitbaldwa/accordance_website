@@ -46,6 +46,11 @@ use Cake\Routing\Router;
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
+$routes->scope('/', function (RouteBuilder $routes) {
+    $routes->setExtensions(['json']);
+    $routes->resources('Api');
+});
+
 $routes->scope('/', function (RouteBuilder $builder) {
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
@@ -62,6 +67,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
         ['controller' => 'Pages', 'action' => 'view'],
     )->setPass(['slug']);
     $builder->connect('/login', ['controller' => 'Users', 'action' => 'login'],['_name'=> 'login']);
+    $builder->connect('api/weburl', ['controller' => 'Api', 'action' => 'index'],['_name'=> 'weburl']);
 
     /*
      * ...and connect the rest of 'Pages' controller's URLs.

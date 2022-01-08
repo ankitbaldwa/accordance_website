@@ -87,6 +87,18 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      */
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
+        $options = [
+            'httponly' => true,
+        ];
+        $csrf = new CsrfProtectionMiddleware($options);
+
+        // Token check will be skipped when callback returns `true`.
+        $csrf->skipCheckCallback(function ($request) {
+            // Skip token check for API URLs.
+            if ($request->getParam('controller') === 'Api') {
+                return true;
+            }
+        });
         $middlewareQueue
             // Catch any exceptions in the lower layers,
             // and make an error page/response
@@ -113,9 +125,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
             // Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/controllers/middleware.html#cross-site-request-forgery-csrf-middleware
-            ->add(new CsrfProtectionMiddleware([
-                'httponly' => true,
-            ]));
+            ->add($csrf);
 
         return $middlewareQueue;
     }

@@ -205,7 +205,7 @@
                                         </div>
                                         <div class="table-footer">
                                             <?php if($price->status == 'Buy Now'){ ?>
-                                            <a href="" class="theme-btn-two">Sign Up For Free</a>
+                                            <a href="<?= $this->Url->build(["controller"=>"users", "action"=>"login"]) ?>" class="theme-btn-two">Sign Up For Free</a>
                                             <?php } ?>
                                         </div>
                                     </div>
