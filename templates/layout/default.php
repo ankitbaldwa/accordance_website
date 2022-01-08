@@ -143,11 +143,12 @@ $cakeDescription = 'Accordance';
                                 <div class="text">Accordance is committed to provide process transparency & high quality products to our customers within the confines of their budget & schedules.</div>
                                 <ul class="social-links">
                                     <li><h6>Follow Us :</h6></li>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-skype"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="https://www.facebook.com/accordanceIndia" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                    <!-- <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-skype"></i></a></li> -->
+                                    <li><a href="https://www.linkedin.com/company/accordance-india" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
                                 </ul>
+                                <figure class="footer-logo"><a href="https://play.google.com/store/apps/details?id=in.co.accordance.invoice&hl=en_IN" target="_blank"><?= $this->Html->image('play-store.png', ['alt'=>'Logo','style'=>'width:30%;']); ?></a></figure>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
