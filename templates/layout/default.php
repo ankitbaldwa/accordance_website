@@ -28,6 +28,31 @@ $cakeDescription = 'Accordance';
     </title>
     <?= $this->Html->meta('icon') ?>
 
+    <meta property="og:title" content="<?= $cakeDescription ?>:<?= $this->fetch('title') ?>" />
+    <meta property="og:url" content="<?= $this->Url->Build([]) ?>" />
+    <meta name="facebook-domain-verification" content="wb50456j3p9dz12gv0pthx6ezw9b8g" />
+    <meta property="og:image" itemprop="image" content="<?= $this->Url->Build([]) ?>img/Accordance_200X200.png" />
+    <meta name="description" content="Over the years we have grown in all aspects — and continue to every day — but our goals have remained the same. Have fun while working with the best technology at hand. Design and create the finest product we can. Compete with the top in the industry. Learn from the best.Focus on the essential. Cultivate openness and respect in all communication. Be friends with one another. Learn constantly.At Accordance, we pride ourselves on our commitment to our clients. We assist small, medium and large companies in building their professional web & mobile presence.Web as well as Mobile Application development is a creative process. Accordance is committed to provide process transparency and high quality products to our customers within the confines of their budget and schedules.We are committed to come up with new ideas & innovations which helps you to automate your life.">
+
+    <meta name="keywords" content="GST Ready Point of sale, Track orders, makeinindia accounting software, made in india accounting software, accounting software, records expences, secured accounting, secured billing, secured pos, point of sale, gst invoiceing and billing, billing with QRcode, Data safety and security for accounting, Get one click business status on screen, Merchandising GST package, Manufacturing GST, Proprietorship GST, Accounting package">
+    <meta name="author" content="Ankit Baldwa">
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.facebook.com/accordanceIndia/">
+    <meta property="og:title" content="<?= $cakeDescription ?>:<?= $this->fetch('title') ?>">
+    <meta property="og:description" content="Over the years we have grown in all aspects — and continue to every day — but our goals have remained the same. Have fun while working with the best technology at hand. Design and create the finest product we can. Compete with the top in the industry. Learn from the best.Focus on the essential. Cultivate openness and respect in all communication. Be friends with one another. Learn constantly.At Accordance, we pride ourselves on our commitment to our clients. We assist small, medium and large companies in building their professional web & mobile presence.Web as well as Mobile Application development is a creative process. Accordance is committed to provide process transparency and high quality products to our customers within the confines of their budget and schedules.We are committed to come up with new ideas & innovations which helps you to automate your life.">
+    <meta property="og:image" content="<?= $this->Url->Build([]) ?>img/Accordance_200X200.png">
+
+    <!-- Twitter -->
+    <meta property="linkedin:url" content="https://www.linkedin.com/company/accordance-india">
+    <meta property="twitter:card" content="<?= $this->Url->Build([]) ?>img/favicon.png">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="<?= $cakeDescription ?>:<?= $this->fetch('title') ?>">
+    <meta property="twitter:description" content="Over the years we have grown in all aspects — and continue to every day — but our goals have remained the same. Have fun while working with the best technology at hand. Design and create the finest product we can. Compete with the top in the industry. Learn from the best.Focus on the essential. Cultivate openness and respect in all communication. Be friends with one another. Learn constantly.At Accordance, we pride ourselves on our commitment to our clients. We assist small, medium and large companies in building their professional web & mobile presence.Web as well as Mobile Application development is a creative process. Accordance is committed to provide process transparency and high quality products to our customers within the confines of their budget and schedules.We are committed to come up with new ideas & innovations which helps you to automate your life.">
+    <meta property="twitter:image" content="<?= $this->Url->Build([]) ?>img/Accordance_200X200.png">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
 
@@ -254,6 +279,8 @@ $cakeDescription = 'Accordance';
 
     <!-- jequery plugins -->
     <?= $this->Html->script(['jquery', 'popper.min', 'bootstrap.min', 'owl', 'wow', 'validation', 'jquery.fancybox', 'appear', 'scrollbar', 'jquery.paroller.min', 'tilt.jquery', 'http://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM', 'gmaps', 'map-helper','sweetalert.min.js'])?>
+     <!-- ==== Razorpay Payment Gateway Script js ====-->
+     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <!-- main-js -->
     <?php /* echo $this->Html->scriptBlock(sprintf(
@@ -261,5 +288,14 @@ $cakeDescription = 'Accordance';
         json_encode($this->request->getAttribute('csrfToken'))
     ));  */?>
     <?= $this->Html->script('script') ?>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171509510-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-171509510-1');
+    </script>
 </body>
 </html>
