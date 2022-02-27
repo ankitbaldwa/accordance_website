@@ -11,7 +11,8 @@ $cakeDescription = 'Accordance';
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->meta('/img/favicon.png',['type' => 'icon']) ?>
+    <?= $this->Html->meta('icon') ?>
+    <?php // $this->Html->meta('/img/favicon.png',['type' => 'icon']) ?>
     <!--begin::Fonts -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
     <!--end::Fonts -->
