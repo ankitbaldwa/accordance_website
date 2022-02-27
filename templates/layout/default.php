@@ -57,7 +57,7 @@ $cakeDescription = 'Accordance';
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <?= $this->Html->css(['font-awesome-all', 'flaticon.css', 'owl', 'bootstrap', 'jquery.fancybox.min', 'animate', 'style', 'responsive']) ?>
+    <?= $this->Html->css(['font-awesome-all', 'flaticon.css', 'owl', 'bootstrap', 'jquery.fancybox.min', 'animate', 'style', 'responsive','cookiealert']) ?>
     <?php echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
 
     <?php $this->fetch('meta') ?>
@@ -155,6 +155,13 @@ $cakeDescription = 'Accordance';
     <!-- End Mobile Menu -->
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
+    <div class="alert text-center cookiealert" role="alert">
+        <b>Do you like cookies?</b> &#x1F36A; We use cookies to ensure you get the best experience on our website.
+
+        <button type="button" class="btn btn-primary btn-sm acceptcookies">
+            I agree
+        </button>
+    </div>
     <!-- main-footer -->
     <footer class="main-footer style-two">
         <div class="image-layer" style="background-image: url(<?= $this->Url->assetUrl('images/icons/footer-bg-5.png') ?>);"></div>
@@ -278,7 +285,7 @@ $cakeDescription = 'Accordance';
     </div>
 
     <!-- jequery plugins -->
-    <?= $this->Html->script(['jquery', 'popper.min', 'bootstrap.min', 'owl', 'wow', 'validation', 'jquery.fancybox', 'appear', 'scrollbar', 'jquery.paroller.min', 'tilt.jquery', 'http://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM', 'gmaps', 'map-helper','sweetalert.min.js'])?>
+    <?= $this->Html->script(['jquery', 'popper.min', 'bootstrap.min', 'owl', 'wow', 'validation', 'jquery.fancybox', 'appear', 'scrollbar', 'jquery.paroller.min', 'tilt.jquery', 'http://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM', 'gmaps', 'map-helper','sweetalert.min.js','cookiealert'])?>
      <!-- ==== Razorpay Payment Gateway Script js ====-->
      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
