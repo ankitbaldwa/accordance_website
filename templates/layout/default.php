@@ -29,7 +29,7 @@ $cakeDescription = 'Accordance';
     <?= $this->Html->meta('icon') ?>
 
     <meta property="og:title" content="<?= $cakeDescription ?>:<?= $this->fetch('title') ?>" />
-    <meta property="og:url" content="<?= $this->Url->Build([]) ?>" />
+    <meta property="og:url" content="<?= $_SERVER['HTTP_HOST'] ?>" />
     <meta name="facebook-domain-verification" content="wb50456j3p9dz12gv0pthx6ezw9b8g" />
     <meta property="og:image" itemprop="image" content="<?= $this->Url->Build([]) ?>img/Accordance_200X200.png" />
     <meta name="description" content="Over the years we have grown in all aspects — and continue to every day — but our goals have remained the same. Have fun while working with the best technology at hand. Design and create the finest product we can. Compete with the top in the industry. Learn from the best.Focus on the essential. Cultivate openness and respect in all communication. Be friends with one another. Learn constantly.At Accordance, we pride ourselves on our commitment to our clients. We assist small, medium and large companies in building their professional web & mobile presence.Web as well as Mobile Application development is a creative process. Accordance is committed to provide process transparency and high quality products to our customers within the confines of their budget and schedules.We are committed to come up with new ideas & innovations which helps you to automate your life.">
